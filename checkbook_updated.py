@@ -2,7 +2,7 @@ import datetime
 
 def current_balance():
     with open('checkbook_history.txt') as f:
-        bal = int(f.read())
+        bal = int(f.readline())
     print("Available Balance is:", bal)
     return bal
 
@@ -27,13 +27,13 @@ def withdrawal(balance):
 
 def view_transactions():
     with open('checkbook_history.txt') as f:
-        transactions = f.readlines()
+        transactions = f.readlines()[1:]  # Skip the first line (balance)
     for transaction in transactions:
         print(transaction.strip())
 
 def view_transactions_by_category(category):
     with open('checkbook_history.txt') as f:
-        transactions = f.readlines()
+        transactions = f.readlines()[1:]  # Skip the first line (balance)
     for transaction in transactions:
         details = transaction.strip().split('\t')
         if details[0].lower() == category.lower():
@@ -41,7 +41,7 @@ def view_transactions_by_category(category):
 
 def search_transactions(keyword):
     with open('checkbook_history.txt') as f:
-        transactions = f.readlines()
+        transactions = f.readlines()[1:]  # Skip the first line (balance)
     for transaction in transactions:
         if keyword.lower() in transaction.lower():
             print(transaction.strip())
@@ -103,7 +103,7 @@ def main():
         elif choice == "8":
             print("THANK YOU, HAVE A GREAT DAY!")
             with open('checkbook_history.txt', 'w') as f:
-                f.write(str(bal))
+                f.write(str(bal) + '\n')  # Write the balance as the first line
             break
 
         else:
