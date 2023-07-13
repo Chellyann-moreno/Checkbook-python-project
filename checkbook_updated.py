@@ -4,6 +4,7 @@ def current_balance():
     with open('checkbook_history.txt') as f:
         bal = int(f.read())
     print("Available Balance is:", bal)
+    return bal
 
 def deposit(balance):
     amount = int(input("How much would you like to deposit? "))
@@ -51,6 +52,8 @@ def modify_transaction():
 
 def main():
     print("~~~~~~~~~ HELLO, WELCOME BACK! ~~~~~~~~~")
+    
+    bal = current_balance()  # Initialize bal with the current balance
     
     while True:
         print("Please select an option:")
